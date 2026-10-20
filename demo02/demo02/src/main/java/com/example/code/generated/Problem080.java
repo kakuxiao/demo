@@ -1,0 +1,31 @@
+package com.example.code.generated;
+
+import java.util.*;
+
+public class Problem080 {
+    // 时间复杂度O(n)，空间复杂度O(1) 
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+       // HashSet + 滑动窗口 or HashMap + 滑动窗口
+       HashMap<Character, Integer> hs = new HashMap<>();
+       int left = 0, right = 0, max = Integer.MIN_VALUE;
+       while (right < s.length()) {
+            char c = s.charAt(right);
+            if (hs.containsKey(c) && hs.get(c) >= left) {  //发现重复字符且重复字符的位置 > 左边界
+                left = hs.get(c) + 1; // left 的下一个位置是上一次出现重复的位置加1
+            }
+            hs.put(c, right);
+            max = Math.max(right - left + 1, max);
+            right++;
+            
+       }
+        return max;
+        
+       
+    }
+    public static void main(String[] args) {
+        System.out.println("3. 无重复字符的最长子串");
+        System.out.println("Solution method is ready.");
+    }}

@@ -1,0 +1,53 @@
+package com.example.code.generated;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Problem014 {
+    //对于每一个节点，都有选或者不选两种决定
+    //选了该节点，则它的左子节点和右子节点不能选
+    //设定一个数组，下标0代表选了该节点的最大偷盗金额，下标1代表未选择该节点的最小偷盗金额
+    // dfs + dp
+    // 时间复杂度O(n),空间复杂度O(n); 每个节点遍历一次
+    public int rob(TreeNode root) {
+        int[] res = dfs(root); // res[]记录选root和不选root可以偷窃的最大值
+        return Math.max(res[0], res[1]);
+    }
+    public int[] dfs(TreeNode root) {
+        if (root == null) {
+            return new int[]{0,0};
+        }
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
+        int selected = root.val + left[1] + right[1];
+        int noSelected = Math.max(left[0], left[1]) + Math.max (right[0], right[1]);
+        return new int[]{selected, noSelected};
+    }
+    
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode() {}
+        public TreeNode(int val) { this.val = val; }
+        public TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }    public static void main(String[] args) {
+        System.out.println("337. 打家劫舍 III");
+        System.out.println("Solution method is ready.");
+    }}

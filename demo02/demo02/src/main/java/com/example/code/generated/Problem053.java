@@ -1,0 +1,73 @@
+package com.example.code.generated;
+
+import java.util.*;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+public class Problem053 {
+    // 1.层序遍历，每次删除两个节点，判断轴对称的两个节点的值是否相等，并将他们的左右子节点的轴对称位置添加进行
+    // 2.递归
+    public boolean isSymmetric(TreeNode root) {
+    //    if (root == null) {
+    //     return true;
+    //    }
+    //    return isMirror(root.left, root.right);
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root.left);
+        que.offer(root.right);
+        while (!que.isEmpty()) {
+            int len = que.size();
+            for (int i = len; i > 0; i -= 2) {
+                TreeNode tmp1 = que.poll();
+                TreeNode tmp2 = que.poll();
+                if (tmp1 == null && tmp2 == null) {
+                    continue;
+                }
+                if (tmp1 == null || tmp2 == null || tmp1.val != tmp2.val) {
+                    return false;
+                }
+                que.offer(tmp1.left); //轴对称的添加节点
+                que.offer(tmp2.right);
+                que.offer(tmp1.right);
+                que.offer(tmp2.left);
+            }
+        }
+        return true;
+    }
+
+    // public boolean isMirror(TreeNode left, TreeNode right) {
+    //     if (left == null && right == null) return true;
+    //     if (left == null || right == null) return false;
+    //     return left.val == right.val && isMirror(left.left, right.right) && isMirror(left.right, right.left);
+    // }
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode() {}
+        public TreeNode(int val) { this.val = val; }
+        public TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }    public static void main(String[] args) {
+        System.out.println("101. 对称二叉树");
+        System.out.println("Solution method is ready.");
+    }}

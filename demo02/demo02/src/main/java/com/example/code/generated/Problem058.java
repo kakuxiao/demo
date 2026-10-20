@@ -1,0 +1,54 @@
+package com.example.code.generated;
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ // 空间复杂度O(N) 递归的深度，最坏是节点的个数
+ // 时间复杂度O(H) 树的高度
+ // 方法： 递归 + 后序遍历
+ // 对于一个节点，他能向上层节点提供的最大值是当前节点的值 + max(左,右子树的最大路径)
+ // 当前节点嘴和路径中点的最大路径和 = 左右子树的的最大路径 + 当前节点的值
+public class Problem058 {
+    private int  maxSum = Integer.MIN_VALUE;
+
+    public int maxPathSum(TreeNode root) {
+        maxGain(root);
+        return maxSum;
+    }
+
+    private int maxGain(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftGain = Math.max(maxGain(node.left), 0);
+        int rightGain = Math.max(maxGain(node.right), 0);
+        maxSum = Math.max(maxSum, node.val + leftGain + rightGain); // 更新最大值
+        return node.val + Math.max(leftGain, rightGain); // 返回不作为路径终点时能贡献的最大值
+    }
+    public static class TreeNode {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode() {}
+        public TreeNode(int val) { this.val = val; }
+        public TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }    public static void main(String[] args) {
+        System.out.println("124. 二叉树中的最大路径和");
+        System.out.println("Solution method is ready.");
+    }}

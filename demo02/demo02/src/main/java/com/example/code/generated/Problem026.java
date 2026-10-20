@@ -1,0 +1,35 @@
+package com.example.code.generated;
+
+import java.util.*;
+
+public class Problem026 {
+    // 所有可能，全排列，回溯
+    List<String> res = new ArrayList<>();
+    String[] numbers = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    public List<String> letterCombinations(String digits) {
+          if (digits.length() == 0) {
+            return res;
+          }
+          backTracking(digits, 0);
+          return res;
+    }
+    StringBuffer sb = new StringBuffer();
+    public void backTracking(String digits, int num) {
+       if (num == digits.length()) {
+        res.add(sb.toString());
+        return;
+       }
+        int index = digits.charAt(num) - '0'; // 这里-'0'得到数字，不能用Inter.valueOf(),这是将字符串转为数字
+        String tmp = numbers[index];
+        for (int i = 0; i < tmp.length(); i++) {
+            sb.append(tmp.charAt(i));
+            backTracking(digits, num + 1);
+            sb.deleteCharAt(sb.length() - 1);           
+        }
+        
+    }
+   
+    public static void main(String[] args) {
+        System.out.println("17. 电话号码的字母组合");
+        System.out.println("Solution method is ready.");
+    }}
